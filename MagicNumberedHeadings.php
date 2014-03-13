@@ -22,26 +22,25 @@
  */
 
 /**
- * This extension realizes a new MagicWord __NUMBEREDHEADINGS__.
- * If an article contains this MagicWord, numbering of the
- * headings is performed regardless of the user preference setting.
+ * This extension implements new magic words:
+ * __NUMBEREDHEADINGS__ and __NONUMBEREDHEADINGS__
+ * If an article contains it, numbering of headings is performed
+ * (or NOT performed) regardless of the user preference setting.
  *
  * How to use:
  * * include this extension in LocalSettings.php:
  *   require_once($IP.'/extensions/MagicNoNumberedHeadings.php');
  * * Add "__NUMBEREDHEADINGS__" to any article of your choice.
  *
- * @author Purodha Blissenbach
- * @version $Revision: 1.11 $
+ * @author Purodha Blissenbach, Vitaliy Filippov
  */
 
-if (!defined('MEDIAWIKI')) {
+if (!defined('MEDIAWIKI'))
     die("This requires the MediaWiki enviroment.");
-}
 
 $wgExtensionCredits['parserhook'][] = array(
     'name'        => 'MagicNumberedHeadings',
-    'version'     => '$Revision: 1.11 $',
+    'version'     => '2014-03-13',
     'author'      => 'Purodha Blissenbach',
     'url'         => 'http://www.mediawiki.org/wiki/Extension:MagicNumberedHeadings',
     'description' => 'Add MagicWord "<nowiki>__NUMBEREDHEADINGS__</nowiki>".',
