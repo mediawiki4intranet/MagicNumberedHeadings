@@ -3,6 +3,8 @@
  * @copyright Copyright © 2007, Purodha Blissenabch.
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License 2.0 or later
  *
+ * -- fixed by Vitaliy Filippov in 2011-2013
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation, version 2
@@ -35,7 +37,8 @@
  * @version $Revision: 1.11 $
  */
 
-if (!defined('MEDIAWIKI')) {
+if (!defined('MEDIAWIKI'))
+{
     die("This requires the MediaWiki enviroment.");
 }
 
@@ -46,47 +49,18 @@ $wgExtensionCredits['parserhook'][] = array(
     'url'         => 'http://www.mediawiki.org/wiki/Extension:MagicNumberedHeadings',
     'description' => 'Add MagicWord "<nowiki>__NUMBEREDHEADINGS__</nowiki>".',
 );
-$wgHooks['MagicWordMagicWords'][] = 'MagicNumberedHeadingsMagicWordMagicWords';
-$wgHooks['MagicWordwgVariableIDs'][] = 'MagicNumberedHeadingsMagicWordwgVariableIDs';
-$wgHooks['LanguageGetMagic'][] = 'MagicNumberedHeadingsLanguageGetMagic';
+$wgExtensionMessagesFiles['MagicNumberedHeadings'] = __DIR__.'/MagicNumberedHeadings.i18n.php';
 $wgHooks['ParserBeforeInternalParse'][] = 'MagicNumberedHeadingsParserBeforeInternalParse';
-
-function MagicNumberedHeadingsMagicWordMagicWords(&$magicWords)
-{
-    $magicWords[] = 'MAG_NUMBEREDHEADINGS';
-    $magicWords[] = 'MAG_NONUMBEREDHEADINGS';
-    return true;
-}
-
-function MagicNumberedHeadingsMagicWordwgVariableIDs(&$wgVariableIDs)
-{
-    $wgVariableIDs[] = MAG_NUMBEREDHEADINGS;
-    $wgVariableIDs[] = MAG_NONUMBEREDHEADINGS;
-    return true;
-}
-
-function MagicNumberedHeadingsLanguageGetMagic(&$magicWords, $langCode)
-{
-    switch($langCode)
-    {
-        case 'de':
-            $magicWords[MAG_NUMBEREDHEADINGS] = array(0, '__ÜBERSCHRIFTENNUMMERIERUNG__', '__NUMBEREDHEADINGS__');
-            break;
-        case 'ksh':
-            $magicWords[MAG_NUMBEREDHEADINGS] = array(0, '__ÖVVERSCHRIFTENUMMERIERE__', '__NUMBEREDHEADINGS__');
-            break;
-        default:
-            $magicWords['MAG_NUMBEREDHEADINGS'] = array(0, '__NUMBEREDHEADINGS__');
-            $magicWords['MAG_NONUMBEREDHEADINGS'] = array(0, '__NONUMBEREDHEADINGS__');
-    }
-    return true;
-}
 
 function MagicNumberedHeadingsParserBeforeInternalParse($parser, &$text, $stripState)
 {
-    if (MagicWord::get(MAG_NUMBEREDHEADINGS)->matchAndRemove($text))
+    if (MagicWord::get('numberedheadings')->matchAndRemove($text))
+    {
         $parser->mOptions->mNumberHeadings = TRUE;
-    if (MagicWord::get(MAG_NONUMBEREDHEADINGS)->matchAndRemove($text))
+    }
+    if (MagicWord::get('nonumberedheadings')->matchAndRemove($text))
+    {
         $parser->mOptions->mNumberHeadings = FALSE;
+    }
     return true;
 }
