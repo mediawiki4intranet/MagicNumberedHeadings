@@ -60,8 +60,8 @@ function MagicNumberedHeadingsMagicWordMagicWords(&$magicWords)
 
 function MagicNumberedHeadingsMagicWordwgVariableIDs(&$wgVariableIDs)
 {
-    $wgVariableIDs[] = MAG_NUMBEREDHEADINGS;
-    $wgVariableIDs[] = MAG_NONUMBEREDHEADINGS;
+    $wgVariableIDs[] = 'MAG_NUMBEREDHEADINGS';
+    $wgVariableIDs[] = 'MAG_NONUMBEREDHEADINGS';
     return true;
 }
 
@@ -70,10 +70,10 @@ function MagicNumberedHeadingsLanguageGetMagic(&$magicWords, $langCode)
     switch($langCode)
     {
         case 'de':
-            $magicWords[MAG_NUMBEREDHEADINGS] = array(0, '__ÜBERSCHRIFTENNUMMERIERUNG__', '__NUMBEREDHEADINGS__');
+            $magicWords['MAG_NUMBEREDHEADINGS'] = array(0, '__ÜBERSCHRIFTENNUMMERIERUNG__', '__NUMBEREDHEADINGS__');
             break;
         case 'ksh':
-            $magicWords[MAG_NUMBEREDHEADINGS] = array(0, '__ÖVVERSCHRIFTENUMMERIERE__', '__NUMBEREDHEADINGS__');
+            $magicWords['MAG_NUMBEREDHEADINGS'] = array(0, '__ÖVVERSCHRIFTENUMMERIERE__', '__NUMBEREDHEADINGS__');
             break;
         default:
             $magicWords['MAG_NUMBEREDHEADINGS'] = array(0, '__NUMBEREDHEADINGS__');
@@ -84,9 +84,9 @@ function MagicNumberedHeadingsLanguageGetMagic(&$magicWords, $langCode)
 
 function MagicNumberedHeadingsParserBeforeInternalParse($parser, &$text, $stripState)
 {
-    if (MagicWord::get(MAG_NUMBEREDHEADINGS)->matchAndRemove($text))
+    if (MagicWord::get('MAG_NUMBEREDHEADINGS')->matchAndRemove($text))
         $parser->mOptions->mNumberHeadings = TRUE;
-    if (MagicWord::get(MAG_NONUMBEREDHEADINGS)->matchAndRemove($text))
+    if (MagicWord::get('MAG_NONUMBEREDHEADINGS')->matchAndRemove($text))
         $parser->mOptions->mNumberHeadings = FALSE;
     return true;
 }
