@@ -3,7 +3,7 @@
  * @copyright Copyright © 2007, Purodha Blissenabch.
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License 2.0 or later
  *
- * -- fixed by Vitaliy Filippov in 2011-2013
+ * -- fixed by Vitaliy Filippov in 2011-2015
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -42,7 +42,7 @@ if (!defined('MEDIAWIKI'))
 
 $wgExtensionCredits['parserhook'][] = array(
     'name'        => 'MagicNumberedHeadings',
-    'version'     => '2014-03-13',
+    'version'     => '2015-10-20',
     'author'      => 'Purodha Blissenbach',
     'url'         => 'http://www.mediawiki.org/wiki/Extension:MagicNumberedHeadings',
     'description' => 'Add MagicWord "<nowiki>__NUMBEREDHEADINGS__</nowiki>".',
@@ -54,11 +54,11 @@ function MagicNumberedHeadingsParserBeforeInternalParse($parser, &$text, $stripS
 {
     if (MagicWord::get('numberedheadings')->matchAndRemove($text))
     {
-        $parser->mOptions->mNumberHeadings = TRUE;
+        $parser->mOptions->setNumberHeadings(true);
     }
     if (MagicWord::get('nonumberedheadings')->matchAndRemove($text))
     {
-        $parser->mOptions->mNumberHeadings = FALSE;
+        $parser->mOptions->setNumberHeadings(false);
     }
     return true;
 }
